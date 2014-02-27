@@ -1,18 +1,9 @@
-# Object files
+*.swp
 *.o
-*.ko
-
-# Libraries
-*.lib
 *.a
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
+*.t
+*.pass
+*.fail
+*.gcov
+*.gcda
+*.gcno
