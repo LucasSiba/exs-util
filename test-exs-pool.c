@@ -2,6 +2,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+#include "sxe-log.h"
 #include "tap.h"
 #include "exs-pool.h"
 
@@ -20,7 +21,7 @@ typedef enum TEST_POOL_STATE {
 int
 main(void)
 {
-    plan_tests(78);
+    plan_tests(81);
 
     test_pool_element* pool = (test_pool_element*) exs_pool_new("test-pool-name", 3, sizeof(test_pool_element), TEST_POOL_STATE_NUMBER_OF_STATES);
 
@@ -157,6 +158,14 @@ main(void)
     test_verify_pool_internals(pool);
 
     exs_pool_del(pool);
+
+    // Pool size of 1
+    pool = (test_pool_element*) exs_pool_new("test-small-pool-name", 1, sizeof(test_pool_element), TEST_POOL_STATE_NUMBER_OF_STATES);
+    test_verify_pool_internals(pool);
+    is(exs_pool_get_oldest_element_index(pool, 0), 0, "ok");
+    is(exs_pool_get_oldest_element_index(pool, 1), POOL_NO_INDEX, "ok");
+    is(exs_pool_get_oldest_element_index(pool, 2), POOL_NO_INDEX, "ok");
+    test_verify_pool_internals(pool);
 
     return exit_status();
 }

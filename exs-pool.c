@@ -45,6 +45,7 @@ typedef struct POOL_INFO {
 void
 test_verify_pool_internals(void * array)
 {
+    SXEL6("running test_verify_pool_internals()");
     char * pool = array;
     unsigned num_states = POOL_POOL_INFO->num_states;
     unsigned i;
@@ -125,7 +126,7 @@ exs_pool_new(const char * name, unsigned num_elems, size_t sizeof_elem, unsigned
     for (i = 0; i < num_elems; i++) {
         if (i == 0) {
             POOL_ELEMS_INFO[i].prev = POOL_NO_INDEX;
-            POOL_ELEMS_INFO[i].next = i + 1;
+            POOL_ELEMS_INFO[i].next = (num_elems == 1) ? POOL_NO_INDEX : i + 1;
         } else if (i == num_elems - 1) {
             POOL_ELEMS_INFO[i].prev = i - 1;
             POOL_ELEMS_INFO[i].next = POOL_NO_INDEX;
