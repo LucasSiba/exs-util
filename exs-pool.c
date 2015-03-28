@@ -369,7 +369,7 @@ exs_pool_get_oldest_element_time(void * array, unsigned state)
 
     if (id == POOL_NO_INDEX) {
         memset(&diff, '\0', sizeof(diff));
-        return diff; 
+        return diff;
     }
 
     struct timeval now;
@@ -397,7 +397,7 @@ unsigned
 exs_pool_index_if_older(void * array, unsigned state, unsigned seconds)
 {
     char * pool = array;
-    SXEL6("exs_pool_callback_if_older(pool=%p, state=%u)", pool, state);
+    SXEL6("exs_pool_index_if_older(pool=%p, state=%u)", pool, state);
     SXEA1(array != NULL, "pool array is not null");
     SXEA1(state < POOL_POOL_INFO->num_states, "state (%u) is out of range (%u total states)", state, POOL_POOL_INFO->num_states);
 
@@ -411,7 +411,6 @@ exs_pool_index_if_older(void * array, unsigned state, unsigned seconds)
 
     if (diff.tv_sec >= seconds) { return id; }
 
-    SXEL6("return id=%u", id);
     return POOL_NO_INDEX;
 }
 
